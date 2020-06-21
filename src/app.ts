@@ -1,5 +1,7 @@
+const TOTAL_OF_POKEMON: number = 100;
+const getPokemonUrl = (id: any): string => `https://pokeapi.co/api/v2/pokemon/${id}`
+
 const container: HTMLElement | any = document.getElementById('app')
-const totalOfPokemon: number = 100
 
 interface IPokemon {
   id: number,
@@ -9,7 +11,7 @@ interface IPokemon {
 }
 
 const fetchPokemon = async (id: number): Promise<void> => {
-  const response: Response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+  const response: Response = await fetch(getPokemonUrl(id))
   const pokemon: any = await response.json()
   const pokemonTypes: string = pokemon.types.map(({ type: { name } }: any) => name).join(', ')
 
@@ -24,7 +26,7 @@ const fetchPokemon = async (id: number): Promise<void> => {
 }
 
 const fetchData = (): void => {
-  for (let i = 1; i < totalOfPokemon; i++) {
+  for (let i = 1; i < TOTAL_OF_POKEMON; i++) {
     fetchPokemon(i);
   }
 }
